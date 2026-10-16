@@ -2,20 +2,37 @@
 const express = require("express");
 
 const {
-  getPosts,
-  getPost,
-  addPost,
+  getAllPosts,
+  getPostById,
+  createPost,
+  editPost,
+  updatePost,
+  deletePost,
 } = require("../controllers/postController");
 
 const router = express.Router();
 
-// GET /posts
-router.get("/", getPosts);
+// Display all posts
+router.get("/", getAllPosts);
 
-// GET /posts/:id
-router.get("/:id", getPost);
+// Display the form to create a post
+router.get("/new", (req, res) => {
+  res.render("new");
+});
 
-// POST /posts
-router.post("/", addPost);
+// Create a post
+router.post("/", createPost);
+
+// Display the edit form
+router.get("/:id/edit", editPost);
+
+// Update a post
+router.post("/:id/edit", updatePost);
+
+// Delete a post
+router.post("/:id/delete", deletePost);
+
+// Display one post
+router.get("/:id", getPostById);
 
 module.exports = router;

@@ -1,27 +1,20 @@
-let posts = [];
 
-const getAllPosts = () => {
-  return posts;
-};
+const mongoose = require("mongoose");
 
-const getPostById = (id) => {
-  return posts.find((post) => post.id === Number(id));
-};
+const postSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-const createPost = (title, content) => {
-  const newPost = {
-    id: posts.length + 1,
-    title,
-    content,
-  };
-
-  posts.push(newPost);
-
-  return newPost;
-};
-
-module.exports = {
-  getAllPosts,
-  getPostById,
-  createPost,
-};
+module.exports = mongoose.model("Post", postSchema);

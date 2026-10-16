@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Blog Post</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/posts">All Posts</a>
+  </nav>
+
+  <main>
+    <h1>Create a New Post</h1>
+    <p>Share your thoughts, stories, and ideas.</p>
+
+    <article>
+      <form action="/posts" method="POST">
+        <div>
+          <label for="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Give your post a title..."
+            required
+          >
+        </div>
+
+        <div>
+          <label for="content">Content</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="8"
+            placeholder="Start writing your story..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit">Publish Post</button>
+        <a href="/posts" style="margin-left: 14px;">Cancel</a>
+      </form>
+    </article>
+  </main>
+</body>
+</html>

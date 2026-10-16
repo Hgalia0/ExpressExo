@@ -1,48 +1,106 @@
-const {
-  getAllPosts,
-  getPostById,
-  createPost,
-} = require("../models/postModel");
 
-// GET /posts
-const getPosts = (req, res) => {
-  const posts = getAllPosts();
+const Post = require("../models/postModel");
 
-  res.render("posts", {
-    posts,
-  });
+// Display all posts
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ timestamp: -1 });
+    res.render("posts", { posts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error retrieving posts");
+  }
 };
 
-// GET /posts/:id
-const getPost = (req, res) => {
-  const post = getPostById(req.params.id);
+// Display one post
+const getPostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
 
-  if (!post) {
-    return res.status(404).render("404");
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+
+    res.render("post", { post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error retrieving post");
   }
-
-  res.render("post", {
-    post,
-  });
 };
 
-// POST /posts
-const addPost = (req, res) => {
-  const { title, content } = req.body;
+// Create a post
+const createPost = async (req, res) => {
+  try {
+    const { title, content } = req.body;
 
-  if (!title || !content) {
-    return res.status(400).json({
-      message: "Title and content are required",
-    });
+    await Post.create({ title, content });
+
+    res.redirect("/posts");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error creating post");
   }
+};
 
-  const newPost = createPost(title, content);
+// Display edit form
+const editPost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
 
-  res.status(201).json(newPost);
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+
+    res.render("edit", { post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error loading edit form");
+  }
+};
+
+// Update a post
+const updatePost = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+
+    const post = await Post.findByIdAndUpdate(
+      req.params.id,
+      { title, content },
+      { new: true, runValidators: true }
+    );
+
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+
+    res.redirect("/posts");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating post");
+  }
+};
+
+// Delete a post
+const deletePost = async (req, res) => {
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+
+    res.redirect("/posts");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error deleting post");
+  }
 };
 
 module.exports = {
-  getPosts,
-  getPost,
-  addPost,
+  getAllPosts,
+  getPostById,
+  createPost,
+  editPost,
+  updatePost,
+  deletePost,
 };

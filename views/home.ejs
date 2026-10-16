@@ -1,17 +1,58 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Blog</title>
+  <title>My Blog | Home</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+  <header class="navbar">
+    <a href="/" class="logo">my<span>blog.</span></a>
 
-  <h1>Welcome to My Blog</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/posts">All Posts</a>
+    </nav>
+  </header>
 
-  <a href="/posts">View all posts</a>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">WELCOME TO MY CORNER OF THE INTERNET</p>
 
+        <h1>Ideas worth<br><span>sharing.</span></h1>
+
+        <p class="hero-description">
+          A place for thoughts, stories, discoveries, and everything
+          worth putting into words.
+        </p>
+
+        <a href="/posts" class="primary-button">
+          Explore all posts <span aria-hidden="true">→</span>
+        </a>
+
+        <p class="hero-note">Read something interesting today.</p>
+      </div>
+
+      <div class="hero-decoration" aria-hidden="true">
+        <div class="decoration-circle">
+          <span>✳</span>
+        </div>
+        <div class="decoration-card">
+          <span class="decoration-label">A LITTLE SPACE</span>
+          <p>For big ideas<br>and honest words.</p>
+          <span class="decoration-line"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-footer">
+      <p>THOUGHTS. STORIES. PERSPECTIVES.</p>
+      <a href="/posts">Discover the blog ↗</a>
+    </section>
+  </main>
 </body>
 </html>
